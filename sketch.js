@@ -1,7 +1,7 @@
 var path, boy, cash, diamonds, jwellery, sword;
-var pathImg, boyImg, cashImg, diamondsImg, jwelleryImg, swordImg;
+var pathImg, boyImg, cashImg, diamondsImg, jwelleryImg, swordImg,hurdleImg;
 var treasureCollection = 0;
-var cashG, diamondsG, jwelleryG, swordGroup;
+var cashG, diamondsG, jwelleryG, swordGroup,hurdleGroup;
 
 var PLAY = 1;
 var END = 0;
@@ -16,6 +16,7 @@ function preload() {
   jwelleryImg = loadImage("jwell.png");
   swordImg = loadImage("sword.png");
   endImg = loadAnimation("gameOver.png");
+  hurdleImg = loadImage("smallRock.png");
 }
 
 function setup() {
@@ -61,6 +62,7 @@ function draw() {
     createDiamonds();
     createJwellery();
     createSword();
+    createhurdle();
     if (cashG.isTouching(boy)) {
       cashG.destroyEach();
       treasureCollection += 50;
@@ -104,7 +106,16 @@ function draw() {
   text("Treasure: " + treasureCollection, 150, 30);
 
 }
-
+function createhurdle() {
+  if (World.frameCount % 150 == 0) {
+    var hurdle = createSprite(Math.round(random(10, 360), 40, 10, 10));
+    hurdle.addImage(hurdleImg);
+    hurdle.scale = 0.2;
+    hurdle.velocityY = 3;
+    hurdle.lifetime = 150;
+    hurdleGroup.add(hurdle);
+  }
+}
 function createCash() {
   if (World.frameCount % 50 == 0) {
     var cash = createSprite(Math.round(random(50, 350), 40, 10, 10));
